@@ -7,12 +7,20 @@ def get_definition(word):
 
     return response.text
 
+while True:
+    user_word = input("please enter a word (--exit to quit): ")
 
-user_word = input("please enter a word: ")
-definition = get_definition(user_word)
-temp = json.loads(definition)
-# print(type(temp))
-for num in range(len(temp[0]["meanings"])):
-    print("definition: " + temp[0]["meanings"][num]["definitions"][0]["definition"])
-    print("example: " + temp[0]["meanings"][num]["definitions"][0]["example"])
-    print("*********")
+    if user_word == "--exit":
+        break
+
+    definition = get_definition(user_word)
+    temp = json.loads(definition)
+
+    # print(temp)
+    try:
+        for num in range(len(temp[0]["meanings"])):
+            print("definition: " + temp[0]["meanings"][num]["definitions"][0]["definition"])
+            print("example: " + temp[0]["meanings"][num]["definitions"][0]["example"])
+            print("*********")
+    except KeyError:
+        print(f"{user_word} is not a word. Try again")
