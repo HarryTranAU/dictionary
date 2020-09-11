@@ -20,13 +20,10 @@ while True:
     try:
         for num in range(len(temp[0]["meanings"])):
             def1 = temp[0]["meanings"][num]["definitions"][0]["definition"]
-            # print("definition: " + def1)
             exp1 = temp[0]["meanings"][num]["definitions"][0]["example"]
-            # print("example: " + exp1)
             sym1 = False
             if "synonyms" in temp[0]["meanings"][num]["definitions"][0].keys():
                 sym1 = temp[0]["meanings"][num]["definitions"][0]["synonyms"]
-                # print("synonyms: ", sym1)
             d = PrettyTable()
             d.field_names = ["-", "details"]
             d.add_row(["Definition", def1])
@@ -35,6 +32,6 @@ while True:
             if sym1:
                 d.add_row(["Synonym", sym1])
             print(d)
-    except ValueError:
+    except KeyError:
         print(f"{user_word} is not a word. Try again")
 
