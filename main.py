@@ -1,6 +1,7 @@
 import requests
 import json
 from prettytable import PrettyTable
+from textwrap3 import wrap
 
 def get_definition(word):
     link = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
@@ -25,13 +26,15 @@ while True:
             if "synonyms" in temp[0]["meanings"][num]["definitions"][0].keys():
                 sym1 = temp[0]["meanings"][num]["definitions"][0]["synonyms"]
             d = PrettyTable()
-            d.field_names = ["-", "details"]
-            d.add_row(["Definition", def1])
+            d.field_names = ["", user_word]
+            d.add_row(["Definition", ""])
+            for section in wrap(def1, 60):
+                d.add_row(["", section])
             d.add_row(["",""])
-            d.add_row(["Example", exp1])
+            d.add_row(["Example", ""])
+            d.add_row(["", exp1])
             if sym1:
                 d.add_row(["Synonym", sym1])
             print(d)
     except KeyError:
         print(f"{user_word} is not a word. Try again")
-
