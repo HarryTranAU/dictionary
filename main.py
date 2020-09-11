@@ -16,11 +16,12 @@ while True:
     definition = get_definition(user_word)
     temp = json.loads(definition)
 
-    # print(temp)
     try:
         for num in range(len(temp[0]["meanings"])):
             print("definition: " + temp[0]["meanings"][num]["definitions"][0]["definition"])
             print("example: " + temp[0]["meanings"][num]["definitions"][0]["example"])
+            if "synonyms" in temp[0]["meanings"][num]["definitions"][0].keys():
+                print("synonyms: ", temp[0]["meanings"][num]["definitions"][0]["synonyms"])
             print("*********")
-    except KeyError:
+    except ValueError:
         print(f"{user_word} is not a word. Try again")
